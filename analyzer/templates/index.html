@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<div class="md">
+    <div class="ud">
+        <h2>📝 Аналізатор тексту</h2>
+        <p>Вставте свій текст нижче для аналізу</p>
+    </div>
+    <div class="dd">
+        <br/>
+        <form method="post">
+            {% csrf_token %}
+            <div class="ctr"><textarea cols="150" rows="20" placeholder="Text" required id="text" name="text">{% if text != "None" %}{{ text }}{% endif %}</textarea></div>
+            <br/>
+            <div class="ctr"><button class="ab" type="submit">🔎 Аналізувати текст</button></div>
+        </form>
+        <br/>
+
+        {% if text_length > 0 %}
+        <h3>✅ Результати аналізу</h3>
+        <br/><hr color="grey"><br/>
+        <div class="ctr">
+            <div class="td">
+                <h4>📄  Кількість символів</h4>
+                <p>{{ text_length }}</p>
+            </div><br/>
+            <div class="td">
+                <h4>📑  Кількість слів</h4>
+                <p>{{ words }}</p>
+            </div><br/>
+            <div class="td">
+                <h4>⏳  Час для прочитання</h4>
+                <p>~{{ time_to_read }} сек</p>
+            </div><br/>
+            <div class="td">
+                <h4>⬛  Найдовше слово</h4>
+                <p>{{ long_word }}</p>
+            </div><br/>
+            <div class="td">
+                <h4>◾  Найкоротше слово</h4>
+                <p>{{ short_word }}</p>
+            </div>
+        </div>
+        {% endif %}
+        <br/>
+    </div>
+</div>
+</body>
+</html>
